@@ -1,4 +1,4 @@
-Projekt 3 NAI - sieć jednowarstwowa:
+Sieć jednowarstwowa:
 
 >>> def funkcja_aktywacji(suma):
 jeśli suma >= 0 to zwraca +1, jeśli suma < 0 to -1
