@@ -1,6 +1,6 @@
 Sieć jednowarstwowa:
 
->>> def funkcja_aktywacji(suma):
+- def funkcja_aktywacji(suma):
 jeśli suma >= 0 to zwraca +1, jeśli suma < 0 to -1
 Funkcja decyzyjna perceptronu - podejmuje binarną decyzję
 
@@ -10,7 +10,7 @@ liczba typu float
 Output: 
 +1 lub -1
 
->>> def funkcja_wejścia(wagi, x):
+- def funkcja_wejścia(wagi, x):
 iloczyn skalarny wag i wektora cech: suma = w1*x1 + … + wn * xn
 Mierzy jak bardzo dana próbka "pasuje" do wzorca (wag)
 Wzorzec (hiperpowierzchnia -> suma w*x) mówi, po której stronie granicy znajduje
@@ -26,7 +26,7 @@ się próbka
 Output:
 suma - liczba float
 
->>> def norm_wektora(wektor):
+- def norm_wektora(wektor):
 normalizacja wektora (skraca wektor do długości 1) - normalizacja do długości jednostkowej
 oblicza długość wektora (norma)
 dzieli każdy element przez normę -> wynikowy wektor długość 1
@@ -40,7 +40,7 @@ wektor o tej samej liczbie elementów, ale długości 1
 
 np.: [3, 4] -> [0.6, 0.8]
 
->>> def wylicz_wektor_cech(tekst):
+- def wylicz_wektor_cech(tekst):
 zamienia tekst na wektor cech oparty na częstości liter a-z
 1.usuwa znaki niebędące literami
 2.zlicza wystąpienia każdej litery a-z
@@ -56,7 +56,7 @@ tekst - string
 Output:
 lista 26 floatów (częstości liter a-z) - znormalizowana
 
->>> def trening(l1, l2, a, epoki=1000):
+- def trening(l1, l2, a, epoki=1000):
 uczy jeden perceptron dla problemu binaryfikowanego (-1 vs +1)
 1.Tworzy listę wag (na start same 0)
 2.w każdej epoce dla każdego przykładu oblicza predykcję, jeśli błąd -> aktualizuje wagi
@@ -73,7 +73,7 @@ epoki - ilość iteracji przez dane (int)
 Output:
 lista wag znormalizowana (float)
 
->>> def zaladuj_dane(trening_files):
+- def zaladuj_dane(trening_files):
 wczytuje teksty z plików, przelicza je na wektory cech
 1.Dla każdego języka: otwiera pliki, wczytuje tekst, tworzy wektor cech
 2.Zapisuje wszystko w słowniku dane
@@ -85,7 +85,7 @@ trening_files - słownik {język : [plik1, ...]
 Output:
 słownik - {język : [wektor_cech, ...]
 
->>> def trening perceptronów(dane, a=0.1, epoki=1000):
+- def trening perceptronów(dane, a=0.1, epoki=1000):
 tworzy jeden perceptron dla każdego języka
 1.Buduje listę wszystkich wektorów + ich etykiety
 2.Dla każdego języka przygotowuje etykiety +1 (ten język) i -1 (inny język), trenuje perceptron,
@@ -93,7 +93,7 @@ zapisuje wagi do słownika
 Trzeba nauczyć perceptron rozpoznawać każdy język - oddzielnie
 Klasyfikacja wieloklasowa zbudowana z wielu binarnych - 1 vs rest
 
->>> def klasyfikuj_tekst(tekst, perceptrony)
+- def klasyfikuj_tekst(tekst, perceptrony)
 Klasyfikuje podany tekst - sprawdza, który perceptron daje najwyższy wynik
 1.Tworzy wektor cech z tekstu
 2.Dla każdego języka oblicza iloczyn wag i wektora
@@ -109,7 +109,7 @@ Output:
 wybrany_język - string (nazwa języka z najwyższym wynikiem)
 wyniki - słownik {język : wynik(float)}
 
->>> def main():
+- def main():
 1.słownik - dla każdego języka przypisana jest lista plików .txt z tekstami
 2.def zaladuj_dane()
 3.Jeśli def zaladuj_dane() nie wczytało żadnych danych, program kończy działanie
