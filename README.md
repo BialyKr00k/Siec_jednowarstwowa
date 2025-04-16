@@ -1,20 +1,19 @@
 Sieć jednowarstwowa:
 
 def funkcja_aktywacji(suma):
-jeśli suma >= 0 to zwraca +1, jeśli suma < 0 to -1
-Funkcja decyzyjna perceptronu - podejmuje binarną decyzję
+-jeśli suma >= 0 to zwraca +1, jeśli suma < 0 to -1
+-Funkcja decyzyjna perceptronu - podejmuje binarną decyzję
 
-Input: 
+-Input: 
 liczba typu float
 
-Output: 
+-Output: 
 +1 lub -1
 
 def funkcja_wejścia(wagi, x):
-iloczyn skalarny wag i wektora cech: suma = w1*x1 + … + wn * xn
-Mierzy jak bardzo dana próbka "pasuje" do wzorca (wag)
-Wzorzec (hiperpowierzchnia -> suma w*x) mówi, po której stronie granicy znajduje
-się próbka
+-iloczyn skalarny wag i wektora cech: suma = w1*x1 + … + wn * xn
+-Mierzy jak bardzo dana próbka "pasuje" do wzorca (wag)
+-Wzorzec (hiperpowierzchnia -> suma w*x) mówi, po której stronie granicy znajduje się próbka
 
 1. lista wag [0.1, 0.2, 0.3] (float)
 2. x - lista floatów (wektor cech - obliczony przez def wylicz_wektor_cech())
@@ -23,37 +22,34 @@ się próbka
 4. dla każdej pary mnożymy wagę razy wartość cechy i dodajemy do sumy
 5. zwracamy sumę -> dowód jak bardzo dane wejście pasuje do modelu
 
-Output:
+-Output: 
 suma - liczba float
 
 def norm_wektora(wektor):
-normalizacja wektora (skraca wektor do długości 1) - normalizacja do długości jednostkowej
-oblicza długość wektora (norma)
-dzieli każdy element przez normę -> wynikowy wektor długość 1
-Zapewnia, że różnice w długości tekstu nie wpływaja na klasyfikację
-Zatem umożliwia uczciwe porównanie tekstów o różnej długości
+-normalizacja wektora (skraca wektor do długości 1) - normalizacja do długości jednostkowej oblicza długość wektora (norma)
+-dzieli każdy element przez normę -> wynikowy wektor długość 1
+-Zapewnia, że różnice w długości tekstu nie wpływaja na klasyfikację
+-Zatem umożliwia uczciwe porównanie tekstów o różnej długości
 
 1. wektor - lista floatów 
 
-Output:
+-Output:
 wektor o tej samej liczbie elementów, ale długości 1
-
 np.: [3, 4] -> [0.6, 0.8]
 
 def wylicz_wektor_cech(tekst):
-zamienia tekst na wektor cech oparty na częstości liter a-z
+-zamienia tekst na wektor cech oparty na częstości liter a-z
 1.usuwa znaki niebędące literami
 2.zlicza wystąpienia każdej litery a-z
 3.dzieli przez długość -> daje częstość liter
 4.normalizuje ten wektor do długości 1
-Zamienia tekst na liczbowy wektor cech, który perceptron może analizować
-Perceptron nie rozumie słów, tylko liczby, więc trzeba przekształcić tekst na liczby
-opisujące jego strukturę
+-Zamienia tekst na liczbowy wektor cech, który perceptron może analizować
+-Perceptron nie rozumie słów, tylko liczby, więc trzeba przekształcić tekst na liczby opisujące jego strukturę
 
-Input:
+-Input:
 tekst - string
 
-Output:
+-Output:
 lista 26 floatów (częstości liter a-z) - znormalizowana
 
 def trening(l1, l2, a, epoki=1000):
