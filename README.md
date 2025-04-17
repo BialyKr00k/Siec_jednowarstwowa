@@ -29,7 +29,10 @@ def norm_wektora(wektor):
 - zapewnia, że różnice w długości tekstu nie wpływaja na klasyfikację
 - zatem umożliwia uczciwe porównanie tekstów o różnej długości
 
-1. wektor - lista floatów 
+1. wektor - lista floatów
+2. norma - norma euklidesowa (długość wektora)
+3. jeśli wektor to 0, to nie da się go znormalizować -> zwrot oryginalnego wektora
+4. dzielimy każdy element wektora przez jego długość np.: [3, 4] -> norma = 5 -> res = [0.6, 0.8]
 
 - Output:
 wektor o tej samej liczbie elementów, ale długości 1
@@ -37,15 +40,20 @@ np.: [3, 4] -> [0.6, 0.8]
 
 def wylicz_wektor_cech(tekst):
 - zamienia tekst na wektor cech oparty na częstości liter a-z
-1.usuwa znaki niebędące literami
-2.zlicza wystąpienia każdej litery a-z
-3.dzieli przez długość -> daje częstość liter
-4.normalizuje ten wektor do długości 1
+- usuwa znaki niebędące literami
+- zlicza wystąpienia każdej litery a-z
+- dzieli przez długość -> daje częstość liter
+- normalizuje ten wektor do długości 1
 - pamienia tekst na liczbowy wektor cech, który perceptron może analizować
 - perceptron nie rozumie słów, tylko liczby, więc trzeba przekształcić tekst na liczby opisujące jego strukturę
 
- - Input:
-tekst - string
+1. tekst - string
+2. cały tekst na małe litery
+3. dozwolone - zbiór 26 liter alfabetu łacińskiego a-z
+4. flitered - lista tylko tych znaków, które są literami a-z
+5. suma_liter - zlicza ile liter w sumie znajduje się w tekście po odfiltrowaniu (do obliczenia procentowgo udziału)
+6. wektor z 26 zerami -> dla każdej litery
+7. 
 
 - Output:
 lista 26 floatów (częstości liter a-z) - znormalizowana
