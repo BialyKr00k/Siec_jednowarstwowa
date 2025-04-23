@@ -53,27 +53,37 @@ def wylicz_wektor_cech(tekst):
 4. flitered - lista tylko tych znaków, które są literami a-z
 5. suma_liter - zlicza ile liter w sumie znajduje się w tekście po odfiltrowaniu (do obliczenia procentowgo udziału)
 6. wektor z 26 zerami -> dla każdej litery
-7. 
+7. aby uniknąć dzielenia przez 0 przy normalizacji to zwracamy wektor zer (jesli nie ma żadnych liter)
+8. Zliczamy ile razy pojawiła się każda litera
+9. każdą wartość w wektorze dzielimy przez sumę liter -> częstość występowania każdej litery (proporcja)
 
 - Output:
-lista 26 floatów (częstości liter a-z) - znormalizowana
+zwraca znormalizowany wektor cech (długość = 1), aby długości tekstu nie miały wpływu na wynik 
 
 def trening(l1, l2, a, epoki=1000):
 - uczy jeden perceptron dla problemu binaryfikowanego (-1 vs +1)
-1.Tworzy listę wag (na start same 0)
-2.w każdej epoce dla każdego przykładu oblicza predykcję, jeśli błąd -> aktualizuje wagi
-3.Normalizuje wagi
-- wagi są korygowane na podstawie błędów
-- algorytm oparty na zasadzie minimalizacji błędów klasyfikacji
 
-- Input:
+1. Dane, które wchodzą do funkcji:
 l1 - lista wektorów cech (lista floatów)
 l2 - lista etykiet +1 lub -1
 a - stała uczenia (float)
 epoki - ilość iteracji przez dane (int)
+2. liczba_cech - oblicza ile cech ma pojedynczy wektor (długość jednego wektora cech)
+potrzebujemy dokładnie tyle wag ile jest cech
+3. Tworzymy listę wag o długości 26 (liczba cech), na początku wszystkie wagi = 0
+Potrzebujemy jej do nauki perceptronu poprzez modyfikację wag
+4. Pętla iterująca poprzez zbiór treningowy tyle razy ile jest epok - perceptron
+może potrzebować wielu przejść, żeby poprawnie nauczyć się rozróżniać klasy
+5. Pętla iterująca po wszystkich przykładach treningowych: 
+xi - wektor cech, do którego przypisujemy aktualny wektor cech -> l1[i]
+6. suma - iloczyn skalarny -> obliczenie aktywacji neuronu
+7. przew_et - do której klasy został przypisany przykład (-1 lub +1)
+8. blad - jeśli perceptron się pomylił to trzeba zmodyfikować wagi,
+jeśli blad = 0 - jest dobrze
+9. Korekcja wag
 
 - Output:
-lista wag znormalizowana (float)
+lista wag znormalizowana (float), 
 
 def zaladuj_dane(trening_files):
 - wczytuje teksty z plików, przelicza je na wektory cech
@@ -87,21 +97,40 @@ trening_files - słownik {język : [plik1, ...]
 - Output:
 słownik - {język : [wektor_cech, ...]
 
-def trening perceptronów(dane, a=0.1, epoki=1000):
+def trening_perceptronów(dane, a=0.1, epoki=1000):
 - tworzy jeden perceptron dla każdego języka
-1.Buduje listę wszystkich wektorów + ich etykiety
-2.Dla każdego języka przygotowuje etykiety +1 (ten język) i -1 (inny język), trenuje perceptron,
-- zapisuje wagi do słownika
-- trzeba nauczyć perceptron rozpoznawać każdy język - oddzielnie
-- klasyfikacja wieloklasowa zbudowana z wielu binarnych - 1 vs rest
+1. Dane, które wchodzą do funkcji:
+dane - słownik {język : lista wektorów cech}
+a - stała uczenia perceptronu
+epoki - liczba iteracji
+2. jezyki - pobieramy listę języków, bedziemy trenować osobny perceptron dla każdego języka
+3. wszystkie_teksty - lista wszystkich wektorów cech
+etykiety_globlane - odpowiadające im etykiety - języki 
+ułatwia to późniejsze tworzenie etykiet binarnych dla każdego perceptronu
+4. pętla for - dla każdgo języka i wektora cech dodajemy go do listy wszystkie_teksty,
+zapisujemy jego etykietę (język) w etykiety_globalne
+5. perceptrony - słownik, do którego zapisujemy wagi dla każdego języka
+6. pętla for - pętla po językach - język X -> +1, inny -> -1
+7. l1 - lista wektora cech (dane wejściowe). l2 - lista etykiet binarnych dla perceptronu
+8. pętla for - +1 jeśli język pasuje do aktualnie trenowanego perceptronu, -1 dla pozostałych języków
+9. wagi - uruchamiamy def trening() - zwraca nauczone wagi perceptronu dla danego języka
+10. perceptrony[jezyk_docelowy] - zapisujemy wagi do słownika pod kluczem danego języka
+
+Output:
+gotowe perceptrony (zbiory wag) dla każdego języka
 
 def klasyfikuj_tekst(tekst, perceptrony)
 - klasyfikuje podany tekst - sprawdza, który perceptron daje najwyższy wynik
-1.Tworzy wektor cech z tekstu
-2.Dla każdego języka oblicza iloczyn wag i wektora
-3.Wybiera język z największym wynikiem
-- główny etap klasyfikacji -> przypisanie nowego tekstu do jednej z klas
-- największy iloczyn wag i cech = największa pewność, że tekst należy do tej klasy
+- celem jest zamienienie tekstu na wektor cech, porównać go z każdym perceptronem i zdecydować, 
+do którego języka najbardziej pasuje
+
+1. Dane, które wchodzą do funkcji:
+teskt - tekst wpisany przez użytkownika
+perceptrony - słownik z wagami wytrenowanych perceptronów dla każdego języka
+2. wektor - def wylicz_wektor_cech() - przekształca tekst na czysty wektor długości 26,
+znormalizowany do długości 1 - matematyczna reprezentacja tekstu
+3. wyniki - wyniki aktywacji perceptronu dla każdego języka
+4. pętla for - iterujemy po każdym języku i jego perceptronie
 
 - Input:
 teskt - string (zdanie do klasyfikacji)
